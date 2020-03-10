@@ -1,5 +1,6 @@
 package connection;
 
+import attributes.Stats;
 import fighter.Fighter;
 
 import java.sql.*;
@@ -24,7 +25,7 @@ public class DatabaseHandler {
      * @throws SQLException
      */
     private DatabaseHandler() throws SQLException {
-        this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafighter" + "?serverTimezone=UTC", "student", "");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafighter" + "?serverTimezone=UTC", "student", "gp7fT61b");
     }
 
     /**
@@ -53,7 +54,8 @@ public class DatabaseHandler {
      * @return selectedFighters an ArrayList that holds objects of selected fighters
      * @throws SQLException
      */
-    public ArrayList<Fighter> selectFighters(int amount) throws SQLException {
+    public ArrayList<Fighter> selectFighters(int amount) throws SQLException, Exception {
+
         prepStmt = conn.prepareStatement("select name, motto, health, strength, resistance_power, speed, wins from fighter limit ?");
         prepStmt.setInt(1, amount);
         resSet = prepStmt.executeQuery();
@@ -69,6 +71,9 @@ public class DatabaseHandler {
             int wins = resSet.getInt("wins");
             selectedFighters.add(new Fighter(name, motto, strength, resistancePower, speed, wins));
         }
+        if(selectedFighters.size() < amount){
+            throw new Exception("The amount of fighters available in database are too few to run the tournament");
+        }
         resSet.close();
         prepStmt.close();
         return selectedFighters;
@@ -80,9 +85,11 @@ public class DatabaseHandler {
      * @throws SQLException
      */
     public int updateFighter(Fighter fighter) throws SQLException{
+
         prepStmt = conn.prepareStatement("update fighter set wins = ? where name = ?");
         prepStmt.setInt(1, fighter.getWins());
         prepStmt.setString(2, fighter.getName());
+
         return prepStmt.executeUpdate();
     }
 

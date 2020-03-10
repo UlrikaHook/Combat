@@ -41,9 +41,10 @@ public class Controller {
      * Sends fighters to tree class to print tournament tree view.
      * @throws SQLException
      */
-    public void eventBeforeTour() throws SQLException {
+    public void eventBeforeTour() throws SQLException, Exception {
         tour.createTournament();
         String message;
+
         for(int i = 0; i < getRemainingFighters().size(); i++) {
             Fighter f = getRemainingFighters().get(i);
             message = MessageBuilder.fighterProfile(f);

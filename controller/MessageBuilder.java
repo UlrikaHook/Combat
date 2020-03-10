@@ -301,9 +301,7 @@ public class MessageBuilder {
         }else{
             message = "Not able to create Tournament tree";
         }
-
         return message;
     }
-
 }
 
