@@ -1,8 +1,6 @@
-package controller;
+package helper;
 
 import fighter.Fighter;
-
-import java.lang.reflect.Array;
 
 
 /**

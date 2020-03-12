@@ -31,7 +31,7 @@ public class Arena {
      * One match consists of three rounds which include one attack with following defence from each fighter
      * @throws SQLException
      */
-    public void runTournament() throws SQLException, Exception {
+    public void runTournament() throws Exception {
         controller.eventBeforeTour();
 
         while (controller.getRemainingFighters().size() > 1) {

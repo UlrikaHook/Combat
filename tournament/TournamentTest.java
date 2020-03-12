@@ -30,34 +30,28 @@ class TournamentTest {
     }
 
     @Test
-    void getInstance_ShouldNeverReturnNull() {
+    void getInstance_NotNull() {
         assertNotNull(tour);
     }
 
 
     @Test
-    void getNextFighter_ShouldReturnFirstElement() {
+    void getNextFighter_FirstElement() {
         assertSame(fighter1, tour.getNextFighter());
     }
 
     @Test
-    void getNextFighter_ShouldDecreaseArrayListByOne(){
+    void getNextFighter_DecreaseArrayListByOne(){
         int sizeBefore = tour.getRemainingFighters().size();
         tour.getNextFighter();
         assertEquals(sizeBefore - 1, tour.getRemainingFighters().size());
     }
 
     @Test
-    void addMatchWinner_ShouldIncreaseArrayListByOne() {
+    void addMatchWinner_IncreaseArrayListByOne() {
         int sizeBefore = tour.getRemainingFighters().size();
         Fighter fighter3 = new Fighter("Fighter3", "Test", 50, 20, 0.1, 0);
         tour.addMatchWinner(fighter3);
         assertEquals(sizeBefore + 1, tour.getRemainingFighters().size());
-    }
-
-    @Test
-    void updateTournamentTree() {
-        //Hur testa denna? Kolla om det blir fler fighters i arrayen. Måste dock felhantera om man skickar in när den redan är full.
-        //Odynamiskt tree, vilket kommer försvinna om grafik läggs till.
     }
 }

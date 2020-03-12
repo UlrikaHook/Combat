@@ -1,5 +1,4 @@
 import controller.Controller;
-import java.sql.SQLException;
 
 public class Main {
 

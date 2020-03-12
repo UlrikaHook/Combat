@@ -29,7 +29,7 @@ public abstract class Attributes {
 
     /**
      * Setter for power
-     * @param power
+     * @param power the level of power
      */
     public void setPower(double power) { this.power = power; }
 
@@ -41,7 +41,7 @@ public abstract class Attributes {
 
     /**
      * Creates a String to visualize the percentage of the power
-     * @return
+     * @return String consisting of bar
      */
      public final String createBar() {
         String bar = "[";

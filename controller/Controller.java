@@ -1,6 +1,7 @@
 package controller;
 
 import fighter.Fighter;
+import helper.MessageBuilder;
 import tournament.Tournament;
 import view.View;
 
@@ -41,7 +42,7 @@ public class Controller {
      * Sends fighters to tree class to print tournament tree view.
      * @throws SQLException
      */
-    public void eventBeforeTour() throws SQLException, Exception {
+    public void eventBeforeTour() throws Exception {
         tour.createTournament();
         String message;
 

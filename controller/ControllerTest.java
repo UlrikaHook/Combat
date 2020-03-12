@@ -32,38 +32,38 @@ class ControllerTest {
     }
 
     @Test
-    void eventBeforeMatch_ShouldReturnTwoElements() throws SQLException {
+    void eventBeforeMatch_TwoElements() {
         tour.setRemainingFighters(new ArrayList<>(List.of(attacker, defender)));
         assertEquals(2, controller.eventBeforeMatch().size());
     }
 
     @Test
-    void battle_DefenderDead_ShouldReturnFalse() {
+    void battle_DefenderDead_False() {
         defender.getHealth().setPower(0);
         assertFalse(controller.battle(attacker, defender));
     }
 
     @Test
-    void battle_DefenderAlive_ShouldReturnTrue(){
+    void battle_DefenderAlive_True(){
         defender.getHealth().setPower(1000);
         assertTrue(controller.battle(attacker, defender));
     }
 
 
     @Test
-    void eventAfterBattle_TieAfterLastRound_ShouldReturnPreviousRound() {
+    void eventAfterBattle_LastRoundDraw_PreviousRound() {
         assertEquals(1, controller.eventAfterBattle(2, attacker, defender));
     }
 
     @Test
-    void eventAfterBattle_NotTieAfterLastRound_ShouldReturnCurrentRound(){
+    void eventAfterBattle_LastRoundNotDraw_CurrentRound(){
         attacker.getHealth().setPower(50);
         defender.getHealth().setPower(60);
         assertEquals(2, controller.eventAfterBattle(2, attacker, defender));
     }
 
     @Test
-    void eventAfterBattle_TieAfterFirstRound_ShouldReturnCurrentRound(){
+    void eventAfterBattle_FirstRoundDraw_CurrentRound(){
         assertEquals(0, controller.eventAfterBattle(0, attacker, defender));
     }
 

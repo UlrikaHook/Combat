@@ -2,14 +2,6 @@ package fighter;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +17,7 @@ class FighterTest {
     }
 
     @Test
-    void attack_ShouldReturnStrengthPlusMinusTenPercent() {
+    void attack_StrengthPlusMinusTenPercent() {
         double strength = fighter1.getStrength().getPower();
         for(int i = 0; i < 50; i++){
             assertTrue(fighter1.attack() >= strength * 0.9 && fighter1.attack() <= strength * 1.1);
@@ -34,7 +26,7 @@ class FighterTest {
     }
 
     @Test
-    void defend_ShouldReturnStrengthPlusMinusTenPercent() {
+    void defend_ResistancePlusMinusTenPercent() {
         double resistance = fighter1.getResPow().getPower();
         for(int i = 0; i < 50; i++){
             assertTrue(fighter1.defend(50) >= resistance * 0.9 && fighter1.defend(50) <= resistance * 1.1);
@@ -42,36 +34,38 @@ class FighterTest {
     }
 
     @Test
-    void escapedHit_SpeedEqualToZero_ShouldReturnFalse() {
+    void escapedHit_SpeedEqualToZero_False() {
         fighter1.getSpeed().setPower(0);
         assertFalse(fighter1.escapedHit());
     }
 
     @Test
-    void isDead_HealthZeroOrNegative_ShouldReturnTrue() {
-        for(int i = 0; i > -10; i--){
+    void isDead_HealthZeroOrNegative_True() {
+        int[] testCases = {0,-10, -50};
+        for(int i = 0; i < testCases.length; i++){
             fighter1.getHealth().setPower(i);
             assertTrue(fighter1.isDead());
         }
     }
 
     @Test
-    void isDead_HealthPositive_ShouldReturnFalse(){
-        for(int i = 1; i < 110; i+=10){
-            fighter1.getHealth().setPower(i);
+    void isDead_HealthPositive_False(){
+        int[] testCases = {1, 20, 60, 120};
+        for (int testCase : testCases) {
+            fighter1.getHealth().setPower(testCase);
             assertFalse(fighter1.isDead());
         }
     }
 
     @Test
-    void wonAgainst_HealthHigherThanOpponent_ShouldReturnTrue() {
+    void wonAgainst_HealthHigherThanOpponent_True() {
         fighter1.getHealth().setPower(50);
         fighter2.getHealth().setPower(20);
         assertTrue(fighter1.wonAgainst(fighter2));
     }
 
     @Test
-    void wonAgainst_HealthEqualOrLowerThanOpponent_ShouldReturnFalse(){
+    void wonAgainst_HealthEqualOrLowerThanOpponent_False(){
         fighter1.getHealth().setPower(20);
         fighter2.getHealth().setPower(50);
         assertFalse(fighter1.wonAgainst(fighter2));

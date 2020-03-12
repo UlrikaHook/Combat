@@ -1,6 +1,5 @@
 package connection;
 
-import attributes.Stats;
 import fighter.Fighter;
 
 import java.sql.*;
@@ -25,7 +24,7 @@ public class DatabaseHandler {
      * @throws SQLException
      */
     private DatabaseHandler() throws SQLException {
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafighter" + "?serverTimezone=UTC", "student", "gp7fT61b");
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/javafighter" + "?serverTimezone=UTC", "student", "");
     }
 
     /**
@@ -54,7 +53,7 @@ public class DatabaseHandler {
      * @return selectedFighters an ArrayList that holds objects of selected fighters
      * @throws SQLException
      */
-    public ArrayList<Fighter> selectFighters(int amount) throws SQLException, Exception {
+    public ArrayList<Fighter> selectFighters(int amount) throws Exception {
 
         prepStmt = conn.prepareStatement("select name, motto, health, strength, resistance_power, speed, wins from fighter limit ?");
         prepStmt.setInt(1, amount);
@@ -64,7 +63,6 @@ public class DatabaseHandler {
         while(resSet.next()){
             String name = resSet.getString("name");
             String motto = resSet.getString("motto");
-            int health = resSet.getInt("health");
             int strength = resSet.getInt("strength");
             int resistancePower = resSet.getInt("resistance_power");
             double speed = resSet.getDouble("speed");

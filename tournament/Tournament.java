@@ -1,7 +1,6 @@
 package tournament;
 
 import connection.DatabaseHandler;
-import controller.MessageBuilder;
 import fighter.Fighter;
 
 import java.sql.SQLException;
@@ -85,7 +84,7 @@ public class Tournament {
      * Fills tournamentTree array with all participating fighters
      * @throws SQLException
      */
-    public void createTournament() throws SQLException, Exception {
+    public void createTournament() throws Exception {
         final int FIGHTERS_TO_SELECT = 16;
         remainingFighters = db.selectFighters(FIGHTERS_TO_SELECT);
 
@@ -115,7 +114,7 @@ public class Tournament {
 
     /**
      * Adds a new fighter to the next empty element/cell in the torunamentTree array
-     * @param fighter
+     * @param fighter the fighter add
      */
     public void updateTournamentTree(Fighter fighter){
         for(int i = 0; i < tournamentTree.length; i++){

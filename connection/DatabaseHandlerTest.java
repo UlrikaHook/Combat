@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Executable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,25 +29,27 @@ class DatabaseHandlerTest {
     }
 
     @Test
-    void getInstance_ShouldNotReturnNull(){
+    void getInstance_NotNull(){
         assertNotNull(instance);
     }
 
     @Test
-    void selectFighters_nrEqualOrLessThanAvailableFighters_ShouldReturnSelectedAmount() throws SQLException, Exception {
-        int nrOfFighters = 16;
-        fighters = instance.selectFighters(nrOfFighters);
-        assertEquals(nrOfFighters, fighters.size());
+    void selectFighters_SelectedAmountAvailable_SelectedAmount() throws Exception {
+        int[] testCases = {1, 15, 16};
+        for (int testCase : testCases) {
+            fighters = instance.selectFighters(testCase);
+            assertEquals(testCase, fighters.size());
+        }
     }
 
     @Test
-    void selectFighters_nrHigherThanAvailableFighters_ShouldThrowException(){
+    void selectFighters_SelectedAmountTooMany_ExceptionThrown(){
         int nrOfFighters = 18;
         Assertions.assertThrows(Exception.class, (() -> instance.selectFighters(nrOfFighters)));
     }
 
     @Test
-    void updateFighterTest() throws SQLException {
+    void updateFighter_OneRowAffected() throws SQLException {
         prepStmt = conn.prepareStatement("insert into fighter(name, motto, health, strength, resistance_power, speed, wins) values (?,?,?,?,?,?,?)");
         prepStmt.setString(1, fighter.getName());
         prepStmt.setString(2, fighter.getMotto());
